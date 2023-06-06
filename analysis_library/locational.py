@@ -1,4 +1,4 @@
-from imports import *
+from analysis_library.packages import *
 
 def extract_corners(results):
     
@@ -163,5 +163,9 @@ def generate_regional_detection_list(region_list, detected_boxes):
             
     return regional_detection_list
 
-
+def produce_locational_detection(image,model):
+    results = model(image)
+    results = results.pandas().xyxy[0]
+    results = results[results.confidence >= 0.3]
+    return results
 

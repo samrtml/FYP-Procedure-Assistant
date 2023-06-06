@@ -1,4 +1,4 @@
-from imports import *
+from analysis_library.packages import *
 
 def update_results_buffer(results_buffer ,instance_results):
     results_buffer.insert(0,instance_results)
