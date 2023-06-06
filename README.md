@@ -3,7 +3,7 @@ Repository containing the implementation of my final year project assembly/disas
 
 The analysis of procedural activities presents a challenging environment for systematic analysis methods to be applied. Though challenging to approach, the possible insights and rewards for developing robust procedural analysis, presents an attractive opportunity for research. Within this project, we aim to address the feasibility and a possible system design for a hypothetical disassembly/assembly assistant. We aim to develop a rigorous generalizable foundation for procedural activity analysis. With a specific focus later in the project, on the utilisation of an augmented reality device (Microsoft HoloLens 2). To present a possible avenue for the development of a ‘smart assistant’ which facilitate user activity and or become tool to promote further development of procedural activity analysis.
 
-![](https://github.com/samrtml/FYP-Procedure-Assistant/tree/main/showcase/bulldozer_disassemble.gif)
+<img src="/showcase/bulldozer_disassemble.gif" width="640" height="360"/> 
 
 ## Instructions for generate_sequence.py
 
