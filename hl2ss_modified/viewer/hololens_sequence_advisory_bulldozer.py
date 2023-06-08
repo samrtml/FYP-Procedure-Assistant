@@ -15,7 +15,7 @@ import threading
 import hl2ss_rus
 
 #HoloLens address
-host = "146.169.250.92"
+host = "146.169.255.30"
 
 def unity_send_text(host,message):
     # HoloLens address

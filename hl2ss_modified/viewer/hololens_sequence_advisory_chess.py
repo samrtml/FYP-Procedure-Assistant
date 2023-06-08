@@ -15,7 +15,7 @@ import threading
 import hl2ss_rus
 
 #HoloLens address
-host = "146.169.250.92"
+host = "146.169.255.30"
 
 def unity_send_text(host,message):
     # HoloLens address
@@ -24,7 +24,7 @@ def unity_send_text(host,message):
     port = hl2ss.IPCPort.UNITY_MESSAGE_QUEUE
 
     # Position in world space (x, y, z) in meters
-    position = [0, -0.45, 1]
+    position = [0, -0.45, 0.65]
 
     # Rotation in world space (x, y, z, w) as a quaternion
     rotation = [0, 0, 0, 1]
@@ -74,8 +74,8 @@ port = hl2ss.StreamPort.PERSONAL_VIDEO
 mode = hl2ss.StreamMode.MODE_0
 
 # Camera parameters
-width     = 1920
-height    = 1080
+width     = 1280
+height    = 720
 framerate = 30
 
 # Video encoding profile
@@ -103,7 +103,7 @@ enable = True
 
 client = hl2ss.rx_decoded_pv(host, port, hl2ss.ChunkSize.PERSONAL_VIDEO, mode, width, height, framerate, profile, bitrate, decoded_format)
 client.open()
-
+print("Connection Successful")
 
 #Analysis Setup
 current_state = 0
@@ -138,26 +138,27 @@ while True:
     if image_out is None:
         continue
     else:
-        if (timer == 100):
+        if (timer == 50):
             timer = 0
 
             #Converting Image and producing detection results
-            converted = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+            converted = cv.cvtColor(image_out, cv.COLOR_BGR2RGB)
             results = produce_locational_detection(converted,model)
 
             #Extract Corners from results
             corners , error_message = extract_corners(results)
 
             if corners is None:
-                draw_text(image, error_message)
-                cv.imshow('Chess Detections', image)
+                #unity_send_text(host,"Please Ensure the entire chess board is visible")
+                draw_text(image_out, error_message)
+                cv.imshow('Chess Detections', image_out)
                 cv.waitKey(50)
 
             else:
                 board_coordinates = assign_corners(corners)
 
                 #Transform to 'flat' space and capture transformation matrix
-                transformed_image, transform_matrix = transform(image,board_coordinates)
+                transformed_image, transform_matrix = transform(image_out,board_coordinates)
 
                 #Produce Detection Results on transformed image
                 results_transformed = produce_locational_detection(transformed_image,model)
@@ -205,14 +206,13 @@ while True:
 
                 #Create Command
                 unity_send_text(host,command)
-                print(command)
 
                 #Display Regions
                 transformed_image = display_regions(transformed_image,lines)
                 display_save_bounding_boxes(results_transformed,transformed_image)
                 #cv.rectangle(transformed_image,region_list[18][0],region_list[18][2],(0,0,255),3)
                 draw_text(transformed_image, command)
-                cv.imshow('Chess Detections', transformed_image )
+                cv.imshow('Video Stream', transformed_image )
                 cv.waitKey(50) #May need to be smaller at some point
 
                 if locational_detections == desired_detection:
@@ -220,7 +220,7 @@ while True:
                     instruction_index += 1
 
 
-            timer += 1
+                timer += 1
         else:
             cv.imshow('Chess Detections', image_out)
             cv.waitKey(1) 
