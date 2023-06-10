@@ -66,7 +66,7 @@ for i in range(1,sequence_length+1):
 file = open(folder_dir_load+'/generated_state_list.csv', "w")
 writer = csv.writer(file)
 for data_list in results_list:
-    writer.writerow(data_list)
+    writer.writerow(data_list[:-1])
 file.close()
 
 #Reading in ground truth results list from csv
@@ -87,6 +87,8 @@ test_performance = []
 for i in range(len(results_list)):
     gt = ground_truth_list[i]
     pred = results_list[i]
+    if gt == pred:
+        print("State "+str(i)+" Correct")
     F1,precision,recall = calculate_context_score(gt,pred)
     test_performance.append([F1,precision,recall])
     print("Performance for State "+str(i)+":")
