@@ -130,5 +130,8 @@ for data_list in test_performance:
     writer.writerow(data_list)
 file.close()
 
-print("Average Sequence Performance: ")
+print("Mean Sequence Performance: ")
 print("F1: "+str(np.mean([i[0] for i in test_performance]))+" Precision: "+str(np.mean([i[1] for i in test_performance]))+" Recall: "+str(np.mean([i[2] for i in test_performance])))
+
+print("Standard Deviation Sequence Performance: ")
+print("F1: "+str(np.std([i[0] for i in test_performance]))+" Precision: "+str(np.std([i[1] for i in test_performance]))+" Recall: "+str(np.std([i[2] for i in test_performance])))
