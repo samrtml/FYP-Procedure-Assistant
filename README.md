@@ -15,8 +15,10 @@ This repository contains the implementation of my final year project procedure a
     - [packages.py](analysis_library/packages.py): Defines external imports and packages used.
 
 - Hololens Deployment:
-    - [hololens_sequence_advisory_bulldozer.py](hl2ss_modified/viewer/hololens_sequence_advisory_bulldozer.py): Deploys the bulldozer assembly/disassembly sequence onto the Hololens 2. (Note you must follow all the steps in the [README](hl2ss_modified/README.md) in the hl2ss_modified folder to deploy the sequence onto the Hololens 2)
-    - [hololens_sequence_advisory_chess.py](hl2ss_modified/viewer/hololens_sequence_advisory_chess.py):Deploys the bulldozer assembly/disassembly sequence onto the Hololens 2. (Note you must follow all the steps in the [README](hl2ss_modified/README.md) in the hl2ss_modified folder to deploy the sequence onto the Hololens 2)
+    - [hololens_sequence_advisory_bulldozer.py](hl2ss_modified/viewer/hololens_sequence_advisory_bulldozer.py): Deploys the bulldozer assembly/disassembly sequence onto the Hololens 2. 
+    - [hololens_sequence_advisory_chess.py](hl2ss_modified/viewer/hololens_sequence_advisory_chess.py):Deploys the bulldozer assembly/disassembly sequence onto the Hololens 2. 
+
+    (Note you must follow all the steps in the [README](hl2ss_modified/README.md) in the hl2ss_modified folder to deploy the sequence onto the Hololens 2)
 
 - Webcam Deployment:
     - [webcam_sequence_advisory.py](webcam_sequence_advisory.py): Deploys the chess and bulldozer examples to your PC and connected webcam. Instructions on how to use this script are below. 
@@ -25,6 +27,10 @@ This repository contains the implementation of my final year project procedure a
     - [generate_sequence.py](generate_sequence.py): Allows the user to generate sequences which can be followed in the advisory scripts. Instructions on how to use this script are below. 
     - [context_robustness_test.py](context_robustness_test.py): Evaluates the systems performance on context representation sequences.
     - [locational_robustness_test.py](locational_robustness_test.py): Evaluates the systems performance on locational representation sequences.
+
+## Dependencies 
+We use a common environment for the execution of our scripts. This environment can be created using the following command: 
+```conda env create -f environment_procedure_analysis.yml``` and our exported environment can be found [environment_procedure_analysis.yml](environment_procedure_analysis.yml).
 
 ## Instructions for generate_sequence.py
 
