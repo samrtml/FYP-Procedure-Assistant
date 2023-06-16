@@ -28,15 +28,25 @@ This repository contains the implementation of my final year project procedure a
     - [context_robustness_test.py](context_robustness_test.py): Evaluates the systems performance on context representation sequences.
     - [locational_robustness_test.py](locational_robustness_test.py): Evaluates the systems performance on locational representation sequences.
 
-## Dependencies 
+## Dependencies and environment setup 
 We use a common environment for the execution of our scripts. This environment can be created using the following command: 
 ```conda env create -f environment_procedure_analysis.yml``` and our exported environment can be found [environment_procedure_analysis.yml](environment_procedure_analysis.yml).
 
 ## Instructions for webcam_sequence_advisory.py
 
+On running the webcam_sequence_advisory.py script you will be prompted to select options and enter a sequence name. Sequences are stored in the ```generated_sequences``` folder. You can either use one of the pre-generated sequences or generate your own using the ```generate_sequence.py``` script. 
+
+To select the bulldozer assembly sequence follow the same terminal prompts as shown below.
+```
+Welcome to the sequence advisory!
+Would you like to advice from a state-machine or state-list? (sm/sl): sl
+Enter the name of the sequence you wish to follow (sequence should be defined in generated_sequences folder): assembly_sequence
+Enter Weights File Name: Bulldozer_detector.pt
+```
+
 ## Instructions for generate_sequence.py
 
-To use generate a custom sequence you can either use the live webcam approach or simply upload a folder of images and a command list. 
+To use generate a custom sequence you can either use the live webcam approach or simply upload a folder of images and a command list. Simply follow the terminal prompts to begin using the tool for your particular cirumstance.
 
 ## State Representations
 
