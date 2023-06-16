@@ -32,8 +32,31 @@ This repository contains the implementation of my final year project procedure a
 We use a common environment for the execution of our scripts. This environment can be created using the following command: 
 ```conda env create -f environment_procedure_analysis.yml``` and our exported environment can be found [environment_procedure_analysis.yml](environment_procedure_analysis.yml).
 
+## Instructions for webcam_sequence_advisory.py
+
 ## Instructions for generate_sequence.py
 
 To use generate a custom sequence you can either use the live webcam approach or simply upload a folder of images and a command list. 
 
-## Instructions for webcam_sequence_advisory.py
+## State Representations
+
+The following is short summary of the state representations styles used in this project.
+
+### Context Representation
+
+The context representation captures all the classes and the number of instances of each class in the current frame. The following table shows an example of the context representation for the bulldozer assembly sequence.
+
+| Class            | loose_wheel | fitted_wheel | wheel_slot | loose_blade | fitted_blade  | loose_cabin | cabin_slot | screws |
+| ---------------- | ----------- | ------------ | ---------- | ----------- | ------------- | ----------- | ---------- | ------ | 
+| No.Detected      | 2           | 0            | 2          | 1           | 0             | 1           | 1          | 3      |
+
+### Locational Representation
+
+The locational representation captures the location of each class in the current frame. The following table shows an example of the locational representation for chess.
+
+| Region Index     | 1 | 2 | 3 | ...  | 62  | 63 | 64 | 
+| ---------------- | - | - | - | ---- | --- | -- | -- |
+| Class Detected   | white-rook | white-pawn | empty  | ...  | empty             | black-pawn          | black-rook         |
+
+## Training - Datasets & Scripts
+
