@@ -21,6 +21,8 @@ def calculate_context_score(ground_truth,prediction):
             FP += 1
         elif ground_truth[i] != 0 and prediction[i] == 0:
             FN += 1
+
+    print("TP: "+str(TP) + " TN: "+str(TN) + " FP: "+str(FP) + " FN: "+str(FN))
     
     #Calculate Precision, Recall, F1
     precision = TP/(TP+FP)
@@ -66,7 +68,7 @@ for i in range(1,sequence_length+1):
 file = open(folder_dir_load+'/generated_state_list.csv', "w")
 writer = csv.writer(file)
 for data_list in results_list:
-    writer.writerow(data_list[:-1])
+    writer.writerow(data_list)
 file.close()
 
 #Reading in ground truth results list from csv
