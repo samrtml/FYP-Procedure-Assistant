@@ -1,11 +1,30 @@
 # FYP-Procedure-Assistant
-Repository containing the implementation of my final year project assembly/disassembly/procedure assistant. 
+This repository contains the implementation of my final year project procedure assistant, assisting is assembly/disassembly and chess. 
 
-The analysis of procedural activities presents a challenging environment for systematic analysis methods to be applied. Though challenging to approach, the possible insights and rewards for developing robust procedural analysis, presents an attractive opportunity for research. Within this project, we aim to address the feasibility and a possible system design for a hypothetical disassembly/assembly assistant. We aim to develop a rigorous generalizable foundation for procedural activity analysis. With a specific focus later in the project, on the utilisation of an augmented reality device (Microsoft HoloLens 2). To present a possible avenue for the development of a ‘smart assistant’ which facilitate user activity and or become tool to promote further development of procedural activity analysis.
 
 <p align="center">
     <img src="/showcase/bulldozer_disassemble.gif" width="640" height="360"/> 
 </p>
+
+
+## Repo Structure 
+- analysis_library:
+    - [context.py](analysis_library/context.py): Defines functions used for context representation analysis.
+    - [locational.py](analysis_library/locational.py): Defines functions used for locational representation analysis.
+    - [visual.py](analysis_library/visual.py): Defines functions used for visual display i.e draw bounding boxes and regions.
+    - [packages.py](analysis_library/packages.py): Defines external imports and packages used.
+
+- Hololens Deployment:
+    - [hololens_sequence_advisory_bulldozer.py](hl2ss_modified/viewer/hololens_sequence_advisory_bulldozer.py): Deploys the bulldozer assembly/disassembly sequence onto the Hololens 2. (Note you must follow all the steps in the [README](hl2ss_modified/README.md) in the hl2ss_modified folder to deploy the sequence onto the Hololens 2)
+    - [hololens_sequence_advisory_chess.py](hl2ss_modified/viewer/hololens_sequence_advisory_chess.py):Deploys the bulldozer assembly/disassembly sequence onto the Hololens 2. (Note you must follow all the steps in the [README](hl2ss_modified/README.md) in the hl2ss_modified folder to deploy the sequence onto the Hololens 2)
+
+- Webcam Deployment:
+    - [webcam_sequence_advisory.py](webcam_sequence_advisory.py): Deploys the chess and bulldozer examples to your PC and connected webcam. Instructions on how to use this script are below. 
+
+- Helper Scripts:
+    - [generate_sequence.py](generate_sequence.py): Allows the user to generate sequences which can be followed in the advisory scripts. Instructions on how to use this script are below. 
+    - [context_robustness_test.py](context_robustness_test.py): Evaluates the systems performance on context representation sequences.
+    - [locational_robustness_test.py](locational_robustness_test.py): Evaluates the systems performance on locational representation sequences.
 
 ## Instructions for generate_sequence.py
 
