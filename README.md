@@ -60,3 +60,13 @@ The locational representation captures the location of each class in the current
 
 ## Training - Datasets & Scripts
 
+All datasets used in this project were captured and hand annotated by myself and have been made publicly available for future development.
+
+The toy bulldozer dataset can be found at: https://app.roboflow.com/bulldozer/toy-bulldozer/overview
+
+The chess dataset can be found at: https://app.roboflow.com/chessdetector/chess-pieces-and-corners/overview
+
+The training script utilised can be found here [Train_YoloV7_on_Custom_Data.ipynb](Train_YoloV7_on_Custom_Data.ipynb). Based on the implementation available at https://github.com/WongKinYiu/yolov7. 
+
+
+
