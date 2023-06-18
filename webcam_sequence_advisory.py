@@ -4,7 +4,6 @@ from analysis_library.packages import *
 from analysis_library.context import *
 from analysis_library.visual import *
 from analysis_library.locational import *
-from analysis_library.state_machine import *
 
 def state_list_advice():
 
