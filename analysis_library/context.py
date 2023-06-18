@@ -261,7 +261,7 @@ def bulldozer_statemachine_analysis():
     cam.set(cv.CAP_PROP_FRAME_HEIGHT, 720)
 
     while True:
-        
+
         check, image = cam.read()
 
         if check:
@@ -276,13 +276,15 @@ def bulldozer_statemachine_analysis():
             generated_results = generate_results_count(results)
             results_buffer = update_results_buffer(results_buffer,generated_results)
             median_result = buffer_most_frequent(results_buffer)
-
             current_state, command = state_machine(current_state,median_result,command)
 
             #Displaying Detection Stream
             display_save_bounding_boxes(results,image)
+            print("See problem5")
             image = cv.resize(image, (1280 , 720))
+            print("See problem6")
             draw_text(image, command)
+            print("See problem7")
             cv.imshow('Bulldozer Detections', image)
             cv.waitKey(50) 
 
