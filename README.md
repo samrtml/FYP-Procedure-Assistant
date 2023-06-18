@@ -3,12 +3,12 @@ This repository contains the implementation of my final year project procedure a
 
 ## Hololens 2 Deployment of Assembly/Disassembly Sequence
 <p align="center">
-    <img src="/showcase/bulldozer_disassemble.gif" width="640" height="360"/> 
+    <img src="/showcase/Hololens-Gif.gif" width="640" height="360"/> 
 </p>
 
 ## Webcam Deployment of Chess Sequence
 <p align="center">
-    <img src="/showcase/bulldozer_disassemble.gif" width="640" height="360"/> 
+    <img src="/showcase/chess-gif.gif" width="640" height="360"/> 
 </p>
 
 
