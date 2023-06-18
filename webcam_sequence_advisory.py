@@ -69,7 +69,7 @@ def context_advice(cam,model,instruction_list,command_list):
                 print("Congratulations! You have completed the sequence!")
                 break
 
-            desired_detection = instruction_list[instruction_index+1]
+            desired_detection = instruction_list[instruction_index]
             command = (command_list[instruction_index])[0]
 
             #Generating State 
@@ -88,6 +88,12 @@ def context_advice(cam,model,instruction_list,command_list):
                 print("Congratulations! You have completed instruction: " + str(instruction_index+1))
                 instruction_index += 1
 
+    #Displaying Detection Stream
+    display_save_bounding_boxes(results,image)
+    image = cv.resize(image, (1280 , 720))
+    draw_text(image, "Congratulations! You have completed the sequence!")
+    cv.imshow('Context Advice', image)
+    cv.waitKey(0) #May need to be smaller at some point
 
 def locational_advice(cam,model,instruction_list,command_list):
     print("Locational Advice")

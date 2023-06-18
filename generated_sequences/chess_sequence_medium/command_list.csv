@@ -1,0 +1,7 @@
+black-pawn e5
+white-pawn e5 (capture)
+black-pawn e5 (capture)
+white-knight c5
+black-rook g3
+black-rook e3 (capture)
+white-knight e6 
