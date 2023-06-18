@@ -280,11 +280,8 @@ def bulldozer_statemachine_analysis():
 
             #Displaying Detection Stream
             display_save_bounding_boxes(results,image)
-            print("See problem5")
             image = cv.resize(image, (1280 , 720))
-            print("See problem6")
             draw_text(image, command)
-            print("See problem7")
             cv.imshow('Bulldozer Detections', image)
             cv.waitKey(50) 
 

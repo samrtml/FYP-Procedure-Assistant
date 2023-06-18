@@ -1,11 +1,16 @@
 from analysis_library.packages import *
+from analysis_library.visual import *
+
 
 def update_results_buffer(results_buffer ,instance_results):
     results_buffer.insert(0,instance_results)
     results_buffer.pop()
     return results_buffer 
 
-def buffer_median(results_buffer):
+def most_frequent(List):
+    return max(set(List), key = List.count)
+
+def buffer_most_frequent(results_buffer):
     buffer_size = len(results_buffer)
     loose_wheel_count = []
     fitted_wheel_count = []
@@ -26,21 +31,12 @@ def buffer_median(results_buffer):
       cabin_slot_count.append(i[6])
       screw_count.append(i[7])
 
-    loose_wheel_count.sort()
-    fitted_wheel_count.sort()
-    wheel_slot_count.sort()
-    loose_blade_count.sort()
-    fitted_blade_count.sort()
-    loose_cabin_count.sort()
-    cabin_slot_count.sort()
-    screw_count.sort()
+    most_frequent_counts = [most_frequent(loose_wheel_count), most_frequent(fitted_wheel_count), 
+                     most_frequent(wheel_slot_count), most_frequent(loose_blade_count),
+                     most_frequent(fitted_blade_count), most_frequent(loose_cabin_count),
+                     most_frequent(cabin_slot_count), most_frequent(screw_count)]
 
-    median_counts = [loose_wheel_count[buffer_size//2], fitted_wheel_count[buffer_size//2], 
-                     wheel_slot_count[buffer_size//2],loose_blade_count[buffer_size//2],
-                     fitted_blade_count[buffer_size//2],loose_cabin_count[buffer_size//2],
-                     cabin_slot_count[buffer_size//2],screw_count[buffer_size//2]]
-
-    return median_counts
+    return most_frequent_counts
 
 def generate_results_count(result):
    
@@ -132,11 +128,11 @@ def state_machine(current_state,detections,previous_command):
             return current_state , command
         if ( (fitted_blade_count == 1) and (fitted_wheel_count == 2)): #Needs to be made more robust
             current_state = 12
-            command = "Congratulations! You have completed the Bulldozer."
+            command = "Congratulations you've successfully assembled Bulldozer"
             return current_state , command
         if ( (loose_blade_count == 0) and (fitted_blade_count == 0) ):
             current_state = 7 
-            command = "Collect a loose blade"
+            command = "Collect the loose blade"
             return current_state , command
 
         return current_state , command
@@ -145,7 +141,7 @@ def state_machine(current_state,detections,previous_command):
     if (current_state == 1 and fitted_wheel_count == 0): 
         if (loose_wheel_count > 0): 
             current_state = 2
-            command = "Collect a scew"
+            command = "Collect a screw for the wheel"
             return current_state , command
         
         return current_state , command
@@ -153,7 +149,7 @@ def state_machine(current_state,detections,previous_command):
     if (current_state == 1 and fitted_wheel_count == 1): 
         if (loose_wheel_count > 0): 
             current_state = 21
-            command = "Collect a scew"
+            command = "Collect a screw for the second wheel"
             return current_state , command
         
         return current_state , command
@@ -161,7 +157,7 @@ def state_machine(current_state,detections,previous_command):
     if (current_state == 4): 
         if (loose_cabin_count > 0): 
             current_state = 5
-            command = "Collect a scew"
+            command = "Collect a screw for the cabin"
             return current_state , command
         
         return current_state , command
@@ -169,7 +165,7 @@ def state_machine(current_state,detections,previous_command):
     if (current_state == 7): 
         if (loose_blade_count > 0): 
             current_state = 8
-            command = "Collect a scew"
+            command = "Collect a screw for the blade"
             return current_state , command
         
         return current_state , command
@@ -202,7 +198,7 @@ def state_machine(current_state,detections,previous_command):
     if (current_state == 21): 
         if (screw_count > 0): 
             current_state = 22
-            command = "Fit the  wheel"
+            command = "Fit the second wheel"
             return current_state , command
         
         return current_state , command
@@ -245,3 +241,50 @@ def state_machine(current_state,detections,previous_command):
     
     command = "Please adjust the bulldozer"
     return current_state , command
+
+
+def bulldozer_statemachine_analysis():
+    #Analysis Functions Initalisation
+    buffer_size = 20
+    results_buffer = [[0,0,0,0,0,0,0,0]]*buffer_size 
+    current_state = 0
+    command = ""
+
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    path = 'weights_collection/Bulldozer_detector.pt'
+    model = torch.hub.load('WongKinYiu/yolov7', 'custom', f"{path}",force_reload=True, trust_repo=True).autoshape()
+
+    #Initiating Camera
+    cam_port = int(input("Enter Camera Port: (0,1,2,...) "))
+    cam = cv.VideoCapture(cam_port)
+    cam.set(cv.CAP_PROP_FRAME_WIDTH, 1280)
+    cam.set(cv.CAP_PROP_FRAME_HEIGHT, 720)
+
+    while True:
+
+        check, image = cam.read()
+
+        if check:
+
+            #Converting Image and producing detectio results
+            converted = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+            results = model(converted)
+            results = results.pandas().xyxy[0]
+            results = results[results.confidence >= 0.05]
+
+            #Generating State 
+            generated_results = generate_results_count(results)
+            results_buffer = update_results_buffer(results_buffer,generated_results)
+            median_result = buffer_most_frequent(results_buffer)
+            current_state, command = state_machine(current_state,median_result,command)
+
+            #Displaying Detection Stream
+            display_save_bounding_boxes(results,image)
+            image = cv.resize(image, (1280 , 720))
+            draw_text(image, command)
+            cv.imshow('Bulldozer Detections', image)
+            cv.waitKey(50) 
+
+            if (current_state == 12):
+                print("Congratulations! You have completed the sequence!")
+                break
