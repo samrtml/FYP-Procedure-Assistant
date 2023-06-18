@@ -7,7 +7,10 @@ def update_results_buffer(results_buffer ,instance_results):
     results_buffer.pop()
     return results_buffer 
 
-def buffer_median(results_buffer):
+def most_frequent(List):
+    return max(set(List), key = List.count)
+
+def buffer_most_frequent(results_buffer):
     buffer_size = len(results_buffer)
     loose_wheel_count = []
     fitted_wheel_count = []
@@ -28,21 +31,12 @@ def buffer_median(results_buffer):
       cabin_slot_count.append(i[6])
       screw_count.append(i[7])
 
-    loose_wheel_count.sort()
-    fitted_wheel_count.sort()
-    wheel_slot_count.sort()
-    loose_blade_count.sort()
-    fitted_blade_count.sort()
-    loose_cabin_count.sort()
-    cabin_slot_count.sort()
-    screw_count.sort()
+    most_frequent_counts = [most_frequent(loose_wheel_count), most_frequent(fitted_wheel_count), 
+                     most_frequent(wheel_slot_count), most_frequent(loose_blade_count),
+                     most_frequent(fitted_blade_count), most_frequent(loose_cabin_count),
+                     most_frequent(cabin_slot_count), most_frequent(screw_count)]
 
-    median_counts = [loose_wheel_count[buffer_size//2], fitted_wheel_count[buffer_size//2], 
-                     wheel_slot_count[buffer_size//2],loose_blade_count[buffer_size//2],
-                     fitted_blade_count[buffer_size//2],loose_cabin_count[buffer_size//2],
-                     cabin_slot_count[buffer_size//2],screw_count[buffer_size//2]]
-
-    return median_counts
+    return most_frequent_counts
 
 def generate_results_count(result):
    
@@ -281,7 +275,7 @@ def bulldozer_statemachine_analysis():
             #Generating State 
             generated_results = generate_results_count(results)
             results_buffer = update_results_buffer(results_buffer,generated_results)
-            median_result = buffer_median(results_buffer)
+            median_result = buffer_most_frequent(results_buffer)
 
             current_state, command = state_machine(current_state,median_result,command)
 

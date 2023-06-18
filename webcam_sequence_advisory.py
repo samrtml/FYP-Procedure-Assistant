@@ -75,7 +75,7 @@ def context_advice(cam,model,instruction_list,command_list):
             #Generating State 
             generated_results = generate_results_count(results)
             results_buffer = update_results_buffer(results_buffer,generated_results)
-            current_detection = buffer_median(results_buffer)
+            current_detection = buffer_most_frequent(results_buffer)
 
             #Displaying Detection Stream
             display_save_bounding_boxes(results,image)
