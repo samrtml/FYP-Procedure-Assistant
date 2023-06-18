@@ -150,18 +150,20 @@ def locational_advice(cam,model,instruction_list,command_list):
                 #Determine IoU
                 locational_detections = generate_regional_detection_list(region_list,detection_nice_format)
 
-                #Navigate Instructions List
-                if instruction_index == len(instruction_list): 
+                #Check if sequence is complete        
+                if instruction_index == (len(instruction_list)): 
                     print("Congratulations! You have completed the sequence!")
                     break
 
-                desired_detection = instruction_list[instruction_index+1]
+                desired_detection = instruction_list[instruction_index]
                 command = (command_list[instruction_index])[0]
 
                 print("Desired Detection")
                 print(desired_detection)
                 print("Locational Detections")
                 print(locational_detections)
+
+                print(instruction_index)
 
                 #Display Regions
                 transformed_image = display_regions(transformed_image,lines)
@@ -170,10 +172,17 @@ def locational_advice(cam,model,instruction_list,command_list):
                 cv.imshow('Locational Detections', transformed_image )
                 cv.waitKey(50)
 
+                #Navigate Instructions List
                 if locational_detections == desired_detection:
                     print("Congratulations! You have completed instruction: " + str(instruction_index+1))
                     instruction_index += 1
+            
 
+    transformed_image = display_regions(transformed_image,lines)
+    display_save_bounding_boxes(results_transformed,transformed_image)
+    draw_text(transformed_image, "Congratulations! You have completed the sequence!")
+    cv.imshow('Locational Detections', transformed_image )
+    cv.waitKey(0)
 
 def main():
     print("Welcome to the sequence advisory!")
