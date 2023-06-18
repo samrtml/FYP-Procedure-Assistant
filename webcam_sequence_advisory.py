@@ -175,6 +175,7 @@ def locational_advice(cam,model,instruction_list,command_list):
                 transformed_image = display_regions(transformed_image,lines)
                 display_save_bounding_boxes(results_transformed,transformed_image)
                 draw_text(transformed_image, command)
+                transformed_image = cv.resize(transformed_image, (1280 , 720))
                 cv.imshow('Locational Detections', transformed_image )
                 cv.waitKey(50)
 
@@ -187,6 +188,7 @@ def locational_advice(cam,model,instruction_list,command_list):
     transformed_image = display_regions(transformed_image,lines)
     display_save_bounding_boxes(results_transformed,transformed_image)
     draw_text(transformed_image, "Congratulations! You have completed the sequence!")
+    transformed_image = cv.resize(transformed_image, (1280 , 720))
     cv.imshow('Locational Detections', transformed_image )
     cv.waitKey(0)
 

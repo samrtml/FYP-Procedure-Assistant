@@ -1,7 +1,12 @@
 # FYP-Procedure-Assistant
 This repository contains the implementation of my final year project procedure assistant, assisting is assembly/disassembly and chess. 
 
+## Hololens 2 Deployment of Assembly/Disassembly Sequence
+<p align="center">
+    <img src="/showcase/bulldozer_disassemble.gif" width="640" height="360"/> 
+</p>
 
+## Webcam Deployment of Chess Sequence
 <p align="center">
     <img src="/showcase/bulldozer_disassemble.gif" width="640" height="360"/> 
 </p>
