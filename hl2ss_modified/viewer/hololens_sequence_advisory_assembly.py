@@ -114,13 +114,13 @@ model = torch.hub.load('WongKinYiu/yolov7', 'custom', f"{path}",force_reload=Tru
 timer = 0
 
 #Read Instructions from CSV
-file = open("trial_sequences/assembly_sequence/sequence_state_list.csv", "r")
+file = open("trial_sequences/assembly_sequence_new/sequence_state_list.csv", "r")
 #instruction_list = [list(map(str,rec)) for rec in csv.reader(file, delimiter=',')]
 instruction_list = [list(map(int,rec)) for rec in csv.reader(file, delimiter=',')]
 file.close()
 
 #Read Instructions from CSV
-file = open("trial_sequences/assembly_sequence/command_list.csv", "r")
+file = open("trial_sequences/assembly_sequence_new/command_list.csv", "r")
 command_list = [list(map(str,rec)) for rec in csv.reader(file, delimiter=',')]
 file.close()
 
@@ -136,7 +136,7 @@ while True:
     if image_out is None:
         continue
     else:
-        if (timer == 50):
+        if (timer == 25):
             timer = 0
             converted = cv.cvtColor(image_out, cv.COLOR_BGR2RGB)
             results = model(converted)

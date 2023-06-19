@@ -136,7 +136,7 @@ while True:
     if image_out is None:
         continue
     else:
-        if (timer == 100):
+        if (timer == 25):
             timer = 0
             converted = cv.cvtColor(image_out, cv.COLOR_BGR2RGB)
             results = model(converted)
@@ -148,7 +148,7 @@ while True:
 
             #Navigate Instructions List
             if instruction_index == len(instruction_list): # Not sure if works yet
-                unity_send_text(host,"Congratulations! You have completed the Bulldozer.")
+                unity_send_text(host,"Congratulations! You have completed disassembly.")
                 print("Congratulations! You have completed the sequence!")
                 break
 

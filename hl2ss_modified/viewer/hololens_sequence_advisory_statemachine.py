@@ -123,7 +123,7 @@ while True:
     if image_out is None:
         continue
     else:
-        if (timer == 100):
+        if (timer == 50):
             timer = 0
             converted = cv.cvtColor(image_out, cv.COLOR_BGR2RGB)
             results = model(converted)
