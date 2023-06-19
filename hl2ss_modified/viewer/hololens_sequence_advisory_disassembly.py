@@ -3,7 +3,6 @@ from analysis_library.packages import *
 from analysis_library.context import *
 from analysis_library.visual import *
 from analysis_library.locational import *
-from analysis_library.state_machine import *
 
 #Imorts for hl2ss  
 from pynput import keyboard
@@ -15,7 +14,7 @@ import threading
 import hl2ss_rus
 
 #HoloLens address
-host = "146.169.255.30"
+host = "146.169.253.244"
 
 def unity_send_text(host,message):
     # HoloLens address
@@ -114,7 +113,20 @@ path = 'weights_collection/Bulldozer_detector.pt'
 model = torch.hub.load('WongKinYiu/yolov7', 'custom', f"{path}",force_reload=True, trust_repo=True).autoshape()
 timer = 0
 
-command = "Hello & Welcome to Assembly Assistant!"
+#Read Instructions from CSV
+file = open("trial_sequences/disassembly_sequence/sequence_state_list.csv", "r")
+#instruction_list = [list(map(str,rec)) for rec in csv.reader(file, delimiter=',')]
+instruction_list = [list(map(int,rec)) for rec in csv.reader(file, delimiter=',')]
+file.close()
+
+#Read Instructions from CSV
+file = open("trial_sequences/disassembly_sequence/command_list.csv", "r")
+command_list = [list(map(str,rec)) for rec in csv.reader(file, delimiter=',')]
+file.close()
+
+instruction_index = 0
+
+command = "Welcome to Dis-assembly Assistant!"
 unity_send_text(host,command)
 
 while True:
@@ -134,24 +146,35 @@ while True:
             #Generating State 
             generated_results = generate_results_count(results)
 
-            current_state, command = state_machine(current_state,generated_results,command)
+            #Navigate Instructions List
+            if instruction_index == len(instruction_list): # Not sure if works yet
+                unity_send_text(host,"Congratulations! You have completed the Bulldozer.")
+                print("Congratulations! You have completed the sequence!")
+                break
+
+            desired_detection = instruction_list[instruction_index]
+            command = (command_list[instruction_index])[0]
 
             #Displaying Detection Stream
             display_save_bounding_boxes(results,image_out)
             image_out = cv.resize(image_out, (1280 , 720))
             draw_text(image_out, command)
+            cv.imshow('Detections', image_out)
+            cv.waitKey(50) 
 
             #Create Command
             unity_send_text(host,command)
             print(command)
 
-            cv.imshow('Detections', image_out)
-            cv.waitKey(50) 
+            print("Desired Detection: ")
+            print(desired_detection)
+            print("Generated Detection: ")
+            print(generated_results)
 
-            if (current_state == 12):
-                unity_send_text(host,"Congratulations! You have completed the Bulldozer.")
-                print("Congratulations! You have completed the Bulldozer.")
-                break
+            if generated_results == desired_detection:
+                print("Congratulations! You have completed instruction: " + str(instruction_index+1))
+                instruction_index += 1
+
 
             timer += 1
         else:
