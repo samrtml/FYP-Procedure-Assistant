@@ -3,7 +3,6 @@ from analysis_library.packages import *
 from analysis_library.context import *
 from analysis_library.visual import *
 from analysis_library.locational import *
-from analysis_library.state_machine import *
 
 #Imorts for hl2ss  
 from pynput import keyboard
