@@ -3,7 +3,6 @@ from analysis_library.packages import *
 from analysis_library.context import *
 from analysis_library.visual import *
 from analysis_library.locational import *
-from analysis_library.state_machine import *
 
 #Imorts for hl2ss  
 from pynput import keyboard
@@ -15,7 +14,7 @@ import threading
 import hl2ss_rus
 
 #HoloLens address
-host = "146.169.250.92"
+host = "146.169.253.244"
 
 def unity_send_text(host,message):
     # HoloLens address
@@ -124,7 +123,7 @@ while True:
     if image_out is None:
         continue
     else:
-        if (timer == 100):
+        if (timer == 50):
             timer = 0
             converted = cv.cvtColor(image_out, cv.COLOR_BGR2RGB)
             results = model(converted)
