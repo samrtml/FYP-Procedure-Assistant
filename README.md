@@ -20,7 +20,9 @@ This repository contains the implementation of my final year project procedure a
     - [packages.py](analysis_library/packages.py): Defines external imports and packages used.
 
 - Hololens Deployment:
-    - [hololens_sequence_advisory_bulldozer.py](hl2ss_modified/viewer/hololens_sequence_advisory_bulldozer.py): Deploys the bulldozer assembly/disassembly sequence onto the Hololens 2. 
+    - [hololens_sequence_advisory_bulldozer.py](hl2ss_modified/viewer/hololens_sequence_advisory_statemachine.py): Deploys the bulldozer assembly/disassembly using statemachine sequence navigation onto the Hololens 2. 
+    - [hololens_sequence_advisory_assembly.py](hl2ss_modified/viewer/hololens_sequence_advisory_assembly.py): Deploys the bulldozer assembly advisory using for sequence list navigation onto the Hololens 2.  
+    - [hololens_sequence_advisory_bulldozer.py](hl2ss_modified/viewer/hololens_sequence_advisory_disassembly.py): Deploys the bulldozer disassembly advisory using for sequence list navigation onto the Hololens 2. 
     - [hololens_sequence_advisory_chess.py](hl2ss_modified/viewer/hololens_sequence_advisory_chess.py):Deploys the bulldozer assembly/disassembly sequence onto the Hololens 2. 
 
     (Note you must follow all the steps in the [README](hl2ss_modified/README.md) in the hl2ss_modified folder to deploy the sequence onto the Hololens 2)
