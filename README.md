@@ -85,5 +85,8 @@ The chess dataset can be found at: https://app.roboflow.com/chessdetector/chess-
 
 The training script utilised can be found here [Train_YoloV7_on_Custom_Data.ipynb](Train_YoloV7_on_Custom_Data.ipynb). Based on the implementation available at https://github.com/WongKinYiu/yolov7. 
 
+## Defined Advisory and Test Sequences
 
+All sequences used in this project were captured and hand annotated by myself and have been made publicly available for future development.
+The test/evaluation sequences can be found in [test_sequences](test_sequences) and the advisory sequences can be found in [generated_sequences](generated_sequences).
 
